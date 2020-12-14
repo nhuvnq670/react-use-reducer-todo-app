@@ -3,10 +3,12 @@ import Todo from './components/Todo'
 
 export const ACTIONS = {
   ADD_TODO: 'add-todo',
-  TOGGLE_TODO: 'toggle-todo'
+  TOGGLE_TODO: 'toggle-todo',
+  DELETE_TODO: 'delete-todo'
 }
 
 function reducer(todos, action) {
+  console.log(action.type);
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodo(action.payload.todoText)]
@@ -19,6 +21,8 @@ function reducer(todos, action) {
       })
 
       return updatedTodos
+    case ACTIONS.DELETE_TODO:
+      return todos.filter(todo => todo.id !== action.payload.id)
     default:
       return todos
   }
@@ -33,12 +37,14 @@ export default function App() {
   const [todos, dispatch] = useReducer(reducer, [])
 
   const handleSubmit = (e) => {
+    console.log('handleSubmit starts')
     e.preventDefault()
 
     dispatch({ type: ACTIONS.ADD_TODO, payload: { todoText: todoText } })
     setTodoText('')
   }
 
+  console.log(todos)
   return (
     <>
       <form onSubmit={handleSubmit}>

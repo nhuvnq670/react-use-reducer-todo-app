@@ -7,7 +7,7 @@ export default function Todo({ id, todoText, completed, dispatch }) {
       <div>
         <label style={{ color: completed ? '#dcdcdc' : '#000' }}>{todoText}</label>
         <button onClick={() => dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: id } })}>Toggle</button>
-        <button>Delete</button>
+        <button onClick={() => dispatch({ type: ACTIONS.DELETE_TODO, payload: { id: id } })}>Delete</button>
       </div>
     </>
   )
